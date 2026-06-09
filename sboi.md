@@ -34,4 +34,5 @@ direction TB
     ReportMaker ..> Failure : Анализирует список сбоев
     ReportMaker ..> Device : Извлекает имена устройств
 	ReportMaker ..> Common : Вызывает IsFailureSerious() и IsEarlier()
+	Failure --> FailureType : Хранит тип сбоя
 ```
