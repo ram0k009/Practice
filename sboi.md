@@ -33,4 +33,5 @@ direction TB
     Failure ..> Common : Вызывает метод IsFailureSerious()
     ReportMaker ..> Failure : Анализирует список сбоев
     ReportMaker ..> Device : Извлекает имена устройств
+	ReportMaker ..> Common : Вызывает IsFailureSerious() и IsEarlier()
 ```
