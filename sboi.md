@@ -33,6 +33,4 @@ direction TB
     Failure ..> Common : Вызывает метод IsFailureSerious()
     ReportMaker ..> Failure : Анализирует список сбоев
     ReportMaker ..> Device : Извлекает имена устройств
-    Failure ..> FailureType : Type хранится как int (должен быть FailureType)
-    Failure --> Device : Хранит DeviceId как поле
 ```
