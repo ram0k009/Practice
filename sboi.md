@@ -8,15 +8,15 @@ direction TB
     }
 
     class Failure {
-	    +int Type
+	    +FailureType Type
 	    +DateTime Date
 	    +int DeviceId
-	    +Failure(int type, DateTime date, int deviceId)
+	    +Failure(FailureType type, DateTime date, int deviceId)
 	    +bool IsSerious()
     }
 
     class Common {
-	    +static int IsFailureSerious(int failureType)
+	    +static int IsFailureSerious(FailureType failureType)
 	    +static int IsEarlier(object[] v, int day, int month, int year)
     }
 
