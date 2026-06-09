@@ -1,8 +1,4 @@
----
-config:
-  theme: default
-title: Практика «Сбои»
----
+```mermaid
 classDiagram
 direction TB
     class Device {
@@ -39,3 +35,4 @@ direction TB
     ReportMaker ..> Device : Извлекает имена устройств
     Failure ..> FailureType : Type хранится как int (должен быть FailureType)
     Failure --> Device : Хранит DeviceId как поле
+```
