@@ -8,37 +8,41 @@
 classDiagram
 direction TB
     class Device {
-	    +int Id
-	    +string Name
-	    +Device(int id, string name)
+        +int Id
+        +string Name
+        +Device(int id, string name)
     }
 
     class Failure {
-	    +FailureType Type
-	    +DateTime Date
-	    +int DeviceId
-	    +Failure(FailureType type, DateTime date, int deviceId)
-	    +bool IsSerious()
+        -FailureType Type
+        -DateTime Date
+        -Device Device
+        +Failure(FailureType type, DateTime date, Device device)
+        +bool IsSerious()
+        +bool IsEarlierThan(DateTime date)
+        +Device GetDevice()
     }
 
     class Common {
-	    +static int IsFailureSerious(FailureType failureType)
-	    +static int IsEarlier(object[] v, int day, int month, int year)
+        +static int IsFailureSerious(int failureType)
+        +static int Earlier(object[] time, int day, int month, int year)
     }
 
     class ReportMaker {
-	    +static List~string~ FindDevicesFailedBeforeDate(DateTime date, List~Failure~ failures, List~Device~ devices)
-	    +static List~string~ FindDevicesFailedBeforeDateObsolete(int day, int month, int year, int[] failureTypes, int[] deviceId, object[][] times, List~Dictionary~ devices)
+        +static List~string~ FindDevicesFailedBeforeDate(DateTime date, Failure[] failures)
+        +static List~string~ FindDevicesFailedBeforeDateObsolete(int day, int month, int year, int[] failureTypes, int[] deviceId, object[][] times, List~Dictionary~ devices)
     }
 
     class FailureType {
+        <<enumeration>>
+        Type1
+        Type2
+        Type3
+        Type4
     }
 
-	<<enumeration>> FailureType
-
-    Failure ..> Common : Вызывает метод IsFailureSerious()
-    ReportMaker ..> Failure : Анализирует список сбоев
-    ReportMaker ..> Device : Извлекает имена устройств
-	ReportMaker ..> Common : Вызывает методы IsFailureSerious() и IsEarlier()
-	Failure --> FailureType : Хранит тип сбоя
+    Failure --> Device : Хранит устройство
+    Failure --> FailureType : Хранит тип сбоя
+    ReportMaker ..> Failure : Получает данные о сбоях
+    ReportMaker ..> Common : Вызывает методы IsFailureSerious() и Earlier()
 ```
