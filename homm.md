@@ -47,7 +47,6 @@ classDiagram
     }
 
     class Interaction {
-        <<static>>
         +static void Make(Player player, object mapObject)
         -static bool TryFight(Player player, object mapObject)
     }
