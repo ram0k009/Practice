@@ -6,13 +6,14 @@
 ## 2. Диаграмма классов (Mermaid)
 ```mermaid
 classDiagram
-direction TB
+    direction TB
+    
     class Device {
         +int Id
         +string Name
         +Device(int id, string name)
     }
-
+    
     class Failure {
         -FailureType Type
         -DateTime Date
@@ -22,17 +23,12 @@ direction TB
         +bool IsEarlierThan(DateTime date)
         +Device GetDevice()
     }
-
-    class Common {
-        +static int IsFailureSerious(int failureType)
-        +static int Earlier(object[] time, int day, int month, int year)
-    }
-
+    
     class ReportMaker {
-        +static List~string~ FindDevicesFailedBeforeDate(DateTime date, Failure[] failures)
-        +static List~string~ FindDevicesFailedBeforeDateObsolete(int day, int month, int year, int[] failureTypes, int[] deviceId, object[][] times, List~Dictionary~ devices)
+        +static List~string~ FindDevicesFailedBeforeDate(DateTime limitDate, Failure[] events)
+        +static List~string~ FindDevicesFailedBeforeDateObsolete(int day, int month, int year, int[] failureTypes, int[] deviceIds, object[][] times, List~Dictionary~ devices)
     }
-
+    
     class FailureType {
         <<enumeration>>
         Type1
@@ -40,9 +36,8 @@ direction TB
         Type3
         Type4
     }
-
+    
     Failure --> Device : Хранит устройство
     Failure --> FailureType : Хранит тип сбоя
-    ReportMaker ..> Failure : Получает данные о сбоях
-    ReportMaker ..> Common : Вызывает методы IsFailureSerious() и Earlier()
+    ReportMaker ..> Failure : Создает и использует
 ```
