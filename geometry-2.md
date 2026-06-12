@@ -1,3 +1,4 @@
+```mermaid
 classDiagram
     direction TB
 
@@ -68,17 +69,15 @@ classDiagram
         +double Z
     }
 
-    %% Реализация интерфейсов с конкретными типами
     IVisitor~RectangularCuboid~ <|.. BoundingBoxVisitor : Реализует
     IVisitor~Body~ <|.. BoxifyVisitor : Реализует
 
-    %% Наследование
     Body <|-- Ball : Наследует
     Body <|-- RectangularCuboid : Наследует
     Body <|-- Cylinder : Наследует
     Body <|-- CompoundBody : Наследует
 
-    %% Композиция и ассоциации
-    CompoundBody *-- Body : Содержит
+    CompoundBody o-- Body : Содержит
     Body --> Vector3 : Имеет свойство Position
     Body ..> IVisitor~T~ : Использует в Accept
+```
