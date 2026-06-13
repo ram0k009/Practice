@@ -1,3 +1,4 @@
+```mermaid
 classDiagram
     direction TB
 
@@ -54,11 +55,10 @@ classDiagram
     IRobotAI~TCommand~ <|.. RobotAI~TCommand~ : Реализует
     RobotAI~IShooterMoveCommand~ <|-- ShooterAI : Наследует
     RobotAI~BuilderCommand~ <|-- BuilderAI : Наследует
-
     IDevice~TCommand~ <|.. Device~TCommand~ : Реализует
     Device~IMoveCommand~ <|-- Mover : Наследует
     Device~IShooterMoveCommand~ <|-- ShooterMover : Наследует
-
     Robot~TCommand~ --> IRobotAI~TCommand~ : Использует интерфейс
     Robot~TCommand~ --> IDevice~TCommand~ : Использует интерфейс
     RobotStatic ..> Robot~TCommand~ : Создает экземпляр
+```
