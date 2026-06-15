@@ -9,8 +9,8 @@ classDiagram
     direction TB
 
     class Algebra {
-        -Dictionary~string, Func~Expression, Expression~~ d$
-        +Differentiate(Expression~Func~double, double~~ f)$ Expression~Func~double, double~~
+        -Dictionary d$
+        +Differentiate(Expression f)$ Expression
         -Derive(Expression node, ParameterExpression x)$ Expression
         -DeriveBinary(BinaryExpression b, ParameterExpression x)$ Expression
         -DeriveMethodCall(MethodCallExpression m, ParameterExpression x)$ Expression
