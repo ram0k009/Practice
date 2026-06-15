@@ -41,8 +41,8 @@ classDiagram
         <<System>>
     }
 
-    Algebra --> Dictionary~string, Func~Expression, Expression~~ : d (статическое поле)
-    Dictionary~string, Func~Expression, Expression~~ --> Func~Expression, Expression~ : Хранит делегаты
+    Algebra --> Dictionary : d 
+    Dictionary --> Func: Хранит делегаты
     Algebra ..> Expression : Использует как тип возврата и параметров
     Algebra ..> ParameterExpression : Использует как параметр метода
     Algebra ..> BinaryExpression : Использует в DeriveBinary
