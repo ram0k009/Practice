@@ -1,3 +1,10 @@
+# Практика: Генератор отчетов
+
+## 1. Описание предметной области и сущностей
+*В системе моделируется генерация отчетов о погодных измерениях. IReportRenderer - интерфейс для форматирования отчета, определяющий методы создания заголовка, начала списка, элемента списка и конца списка. IStatisticsCalculator - интерфейс для вычисления статистических показателей, позволяющий получить название статистики и рассчитать ее по набору данных. HtmlRenderer - рендерер, который форматирует отчет в HTML с тегами h1, ul и li. MarkdownRenderer - рендерер, который форматирует отчет в Markdown с заголовками второго уровня и маркированными списками. MeanAndStdCalculator - калькулятор, вычисляющий среднее арифметическое и стандартное отклонение выборки. MedianCalculator - калькулятор, вычисляющий медиану выборки. ReportMaker - класс, который комбинирует рендерер и калькулятор для создания готового отчета. ReportMakerHelper - статический вспомогательный класс, предоставляющий методы для создания конкретных типов отчетов. Measurement - сущность, хранящая результаты одного измерения: температуру и влажность воздуха.*
+
+## 2. Диаграмма классов (Mermaid)
+```mermaid
 classDiagram
     direction TB
 
@@ -64,23 +71,18 @@ classDiagram
         +double Std
     }
 
-    %% 1. Реализация интерфейсов
     IReportRenderer <|.. HtmlRenderer : Реализует
     IReportRenderer <|.. MarkdownRenderer : Реализует
     IStatisticsCalculator <|.. MeanAndStdCalculator : Реализует
     IStatisticsCalculator <|.. MedianCalculator : Реализует
-
-    %% 2. Агрегация (объекты передаются в конструктор извне)
-    ReportMaker o-- IReportRenderer : Хранит рендерер
+    ReportMaker o-- IReportRenderer : Хранит рендер
     ReportMaker o-- IStatisticsCalculator : Хранит калькулятор
-
-    %% 3. Зависимости (использование типов в сигнатурах методов или локально)
     ReportMaker ..> Measurement : Принимает в MakeReport
     MeanAndStdCalculator ..> MeanAndStd : Создает внутри Calculate
-    
-    ReportMakerHelper ..> ReportMaker : Создает локально
-    ReportMakerHelper ..> HtmlRenderer : Создает локально
-    ReportMakerHelper ..> MarkdownRenderer : Создает локально
-    ReportMakerHelper ..> MeanAndStdCalculator : Создает локально
-    ReportMakerHelper ..> MedianCalculator : Создает локально
+    ReportMakerHelper ..> ReportMaker : Создает 
+    ReportMakerHelper ..> HtmlRenderer : Создает 
+    ReportMakerHelper ..> MarkdownRenderer : Создает 
+    ReportMakerHelper ..> MeanAndStdCalculator : Создает 
+    ReportMakerHelper ..> MedianCalculator : Создает 
     ReportMakerHelper ..> Measurement : Передает в методы
+```
