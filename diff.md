@@ -9,45 +9,42 @@ classDiagram
     direction TB
 
     class Algebra {
-        -Dictionary d$
-        +Differentiate(f)$
-        -Derive(node, x)$
-        -DeriveBinary(b, x)$
-        -DeriveMethodCall(m, x)$
+        -Dictionary~string, Func~Expression, Expression~~ d$
+        +Differentiate(Expression~Func~double, double~~ f)$ Expression~Func~double, double~~
+        -Derive(Expression node, ParameterExpression x)$ Expression
+        -DeriveBinary(BinaryExpression b, ParameterExpression x)$ Expression
+        -DeriveMethodCall(MethodCallExpression m, ParameterExpression x)$ Expression
     }
 
-    class Dictionary {
-        +Add() void
-        +ContainsKey() bool
+    class Dictionary~string, Func~Expression, Expression~~ {
+        <<System>>
+    }
+
+    class Func~Expression, Expression~ {
+        <<System>>
+        <<delegate>>
     }
 
     class Expression {
-        <<abstract>>
+        <<System>>
     }
 
     class ParameterExpression {
-        +string Name
+        <<System>>
     }
 
     class BinaryExpression {
-        +Expression Left
-        +Expression Right
+        <<System>>
     }
 
     class MethodCallExpression {
-        +MethodInfo Method
+        <<System>>
     }
 
-    class UnaryExpression {
-        +ExpressionType NodeType
-    }
-
-    Expression <|-- ParameterExpression : Наследует
-    Expression <|-- BinaryExpression : Наследует
-    Expression <|-- MethodCallExpression : Наследует
-    Algebra --> Dictionary : Содержит статическое поле d
-    Algebra ..> Expression : Использует для построения дерева выражений
-    Algebra ..> ParameterExpression : Использует как параметр дифференцирования
+    Algebra --> Dictionary~string, Func~Expression, Expression~~ : d (статическое поле)
+    Dictionary~string, Func~Expression, Expression~~ --> Func~Expression, Expression~ : Хранит делегаты
+    Algebra ..> Expression : Использует как тип возврата и параметров
+    Algebra ..> ParameterExpression : Использует как параметр метода
     Algebra ..> BinaryExpression : Использует в DeriveBinary
     Algebra ..> MethodCallExpression : Использует в DeriveMethodCall
 ```
