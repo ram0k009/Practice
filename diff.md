@@ -45,7 +45,7 @@ classDiagram
     Expression <|-- ParameterExpression : Наследует
     Expression <|-- BinaryExpression : Наследует
     Expression <|-- MethodCallExpression : Наследует
-    Algebra --> Dictionary~string, Func~Expression, Expression~~ : Содержит статическое поле d
+    Algebra --> Dictionary : Содержит статическое поле d
     Algebra ..> Expression : Использует для построения дерева выражений
     Algebra ..> ParameterExpression : Использует как параметр дифференцирования
     Algebra ..> BinaryExpression : Использует в DeriveBinary
