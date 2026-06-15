@@ -16,11 +16,11 @@ classDiagram
         -DeriveMethodCall(MethodCallExpression m, ParameterExpression x)$ Expression
     }
 
-    class Dictionary~string, Func~Expression, Expression~~ {
+    class Dictionary {
         <<System>>
     }
 
-    class Func~Expression, Expression~ {
+    class Func {
         <<System>>
         <<delegate>>
     }
