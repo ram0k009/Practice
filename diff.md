@@ -9,25 +9,20 @@ classDiagram
     direction TB
 
     class Algebra {
-        -Dictionary[string, Func[Expression, Expression]] d$
-        +Differentiate(Expression[Func[double, double]] f)$ Expression[Func[double, double]]
-        -Derive(Expression node, ParameterExpression x)$ Expression
-        -DeriveBinary(BinaryExpression b, ParameterExpression x)$ Expression
-        -DeriveMethodCall(MethodCallExpression m, ParameterExpression x)$ Expression
+        -Dictionary d$
+        +Differentiate(f)$
+        -Derive(node, x)$
+        -DeriveBinary(b, x)$
+        -DeriveMethodCall(m, x)$
     }
 
-    class Dictionary[TKey, TValue] {
-        +Add(TKey key, TValue value) void
-        +ContainsKey(TKey key) bool
+    class Dictionary {
+        +Add() void
+        +ContainsKey() bool
     }
 
     class Expression {
-        +Constant(object value)$ ConstantExpression
-        +Add(Expression left, Expression right)$ BinaryExpression
-        +Multiply(Expression left, Expression right)$ BinaryExpression
-        +Call(MethodInfo method, Expression argument)$ MethodCallExpression
-        +Negate(Expression expression)$ UnaryExpression
-        +Lambda[TDelegate](Expression body, ParameterExpression[] parameters)$ Expression[TDelegate]
+        <<abstract>>
     }
 
     class ParameterExpression {
@@ -37,16 +32,14 @@ classDiagram
     class BinaryExpression {
         +Expression Left
         +Expression Right
-        +ExpressionType NodeType
     }
 
     class MethodCallExpression {
         +MethodInfo Method
-        +IReadOnlyList[Expression] Arguments
     }
 
-    class Func[T1, TResult] {
-        <<delegate>>
+    class UnaryExpression {
+        +ExpressionType NodeType
     }
 
     Expression <|-- ParameterExpression : Наследует
