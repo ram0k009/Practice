@@ -1,3 +1,10 @@
+# Практика: GraphViz
+
+## 1. Описание предметной области и сущностей
+*В системе реализован построитель графов в формате DOT для визуализации с помощью Graphviz. DotGraphBuilder - основной класс, предоставляющий фасад для создания ориентированных и неориентированных графов. Graph - класс, представляющий граф, содержащий коллекции узлов и ребер. GraphNode - узел графа, имеющий атрибуты. GraphEdge - ребро графа, соединяющее два узла и имеющее атрибуты. NodeBuilder - построитель узлов, предоставляющий методы для добавления новых узлов и ребер, а также конфигурации текущего узла через метод With. EdgeBuilder - построитель ребер, предоставляющий методы для добавления новых узлов и ребер, а также конфигурации текущего ребра через метод With. NodeConfigurator - класс для настройки атрибутов узла в DSL. EdgeConfigurator - класс для настройки атрибутов ребра в DSL. DotFormatWriter - класс, отвечающий за сериализацию графа в DOT формате. NodeShape - статический класс с константами для определения формы узлов.*
+
+## 2. Диаграмма классов (Mermaid)
+```mermaid
 classDiagram
     direction TB
 
@@ -70,23 +77,16 @@ classDiagram
         +Ellipse string$
     }
 
-    %% Исправлено: Билдер жестко владеет Графом, а Граф жестко владеет своими Узлами и Ребрами
-    DotGraphBuilder *-- Graph : Композиция
-    Graph *-- GraphNode : Композиция
-    Graph *-- GraphEdge : Композиция
-
-    DotGraphBuilder ..> DotFormatWriter : Зависимость
-    
-    NodeBuilder --> DotGraphBuilder : Ассоциация
-    NodeBuilder --> GraphNode : Ассоциация
-    
-    EdgeBuilder --> DotGraphBuilder : Ассоциация
-    EdgeBuilder --> GraphEdge : Ассоциация
-    
-    NodeBuilder ..> NodeConfigurator : Зависимость
-    EdgeBuilder ..> EdgeConfigurator : Зависимость
-    
-    NodeConfigurator --> GraphNode : Ассоциация
-    EdgeConfigurator --> GraphEdge : Ассоциация
-
-    %% Связь DotGraphBuilder ..> NodeShape удалена, так как в коде они не связаны напрямую
+    DotGraphBuilder *-- Graph : graph
+    Graph *-- GraphNode : Содержит узлы
+    Graph *-- GraphEdge : Содержит ребра
+    DotGraphBuilder ..> DotFormatWriter : Использует в Build
+    NodeBuilder --> DotGraphBuilder : builder
+    NodeBuilder --> GraphNode : node
+    EdgeBuilder --> DotGraphBuilder : builder
+    EdgeBuilder --> GraphEdge : edge
+    NodeBuilder ..> NodeConfigurator : Создает в With
+    EdgeBuilder ..> EdgeConfigurator : Создает в With
+    NodeConfigurator --> GraphNode : node
+    EdgeConfigurator --> GraphEdge : edge
+```
