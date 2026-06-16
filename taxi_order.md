@@ -1,3 +1,10 @@
+# Практика: TaxiOrder
+
+## 1. Описание предметной области и сущностей
+*В системе реализовано управление заказами такси. TaxiApi - основной класс, предоставляющий API для создания и управления заказами такси. TaxiOrder - агрегатный корень, представляющий заказ такси. Driver - сущность, представляющая водителя такси с закрепленным автомобилем. Car - объект, описывающий автомобиль. PersonName - объект, хранящее имя и фамилию клиента или водителя. Address - объект, описывающий адрес. DriversRepository - репозиторий для поиска водителей по идентификатору. TaxiOrderStatus - перечисление, определяющее состояния заказа: WaitingForDriver (ожидание водителя), WaitingCarArrival (ожидание прибытия авто), InProgress (в пути), Finished (завершен), Canceled (отменен). ITaxiApi<TOrder> - интерфейс, определяющий контракт для работы с заказами такси. Entity<TId> и ValueType<T> - классы инфраструктуры для сущностей и объектов-значений.*
+
+## 2. Диаграмма классов (Mermaid)
+```mermaid
 classDiagram
     direction TB
 
@@ -113,35 +120,25 @@ classDiagram
         <<delegate>>
     }
 
-    %% Наследование и реализация интерфейсов
-    Entity~int~ <|-- TaxiOrder : наследует
-    Entity~int~ <|-- Driver : наследует
-    ValueType~Car~ <|-- Car : наследует
-    ITaxiApi~TaxiOrder~ <|.. TaxiApi : реализует
-
-    %% Ассоциация (постоянные ссылки в полях)
+    Entity~int~ <|-- TaxiOrder : Наследует
+    Entity~int~ <|-- Driver : Наследует
+    ValueType~Car~ <|-- Car : Наследует
+    ITaxiApi~TaxiOrder~ <|.. TaxiApi : Реализует
     TaxiApi --> DriversRepository : driverRepo
     TaxiApi --> Func~DateTime~ : currentTime
-
-    %% Композиция (жесткая связь - объекты создаются внутри)
     TaxiOrder *-- PersonName : ClientName
     TaxiOrder *-- Address : Start
     TaxiOrder *-- Address : Destination
     Driver *-- PersonName : Name
     Driver *-- Car : Car
-
-    %% Агрегация (мягкая связь - объект приходит извне)
     TaxiOrder o-- Driver : assignedDriver
-
-    %% Обычная ассоциация к Enum
     TaxiOrder --> TaxiOrderStatus : Status
-
-    %% Зависимости (использование без сохранения в полях)
-    TaxiApi ..> TaxiOrder : создает
-    TaxiApi ..> Address : создает для передачи
-    TaxiApi ..> PersonName : создает для передачи
-    TaxiApi ..> Driver : использует при назначении
-    TaxiOrder ..> Driver : использует в AssignDriver()
-    DriversRepository ..> Driver : создает
-    DriversRepository ..> Car : создает
-    DriversRepository ..> PersonName : создает
+    TaxiApi ..> TaxiOrder : Создает
+    TaxiApi ..> Address : Создает для передачи
+    TaxiApi ..> PersonName : Создает для передачи
+    TaxiApi ..> Driver : Использует при назначении
+    TaxiOrder ..> Driver : Использует в AssignDriver()
+    DriversRepository ..> Driver : Создает
+    DriversRepository ..> Car : Создает
+    DriversRepository ..> PersonName : Создает
+```
