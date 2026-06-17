@@ -76,12 +76,10 @@ classDiagram
 
     IVisitor~RectangularCuboid~ <|.. BoundingBoxVisitor : Реализует
     IVisitor~Body~ <|.. BoxifyVisitor : Реализует
-
     Body <|-- Ball : Наследует
     Body <|-- RectangularCuboid : Наследует
     Body <|-- Cylinder : Наследует
     Body <|-- CompoundBody : Наследует
-
     CompoundBody o-- Body : Содержит
     Body --> Vector3 : Имеет свойство Position
     Body ..> IVisitor~T~ : Использует в Accept
